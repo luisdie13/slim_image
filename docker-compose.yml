@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Optimized application using multi-stage build with Alpine
+  slim-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: slim-image-optimized
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - app-network
+
+  # Standard (non-optimized) application for comparison
+  standard-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.standard
+    container_name: slim-image-standard
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

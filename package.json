@@ -1,0 +1,19 @@
+{
+  "name": "slim-image-app",
+  "version": "1.0.0",
+  "description": "A simple Node.js application for Docker optimization demonstration",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js"
+  },
+  "keywords": ["docker", "optimization", "alpine"],
+  "author": "Student",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
