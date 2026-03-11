@@ -280,14 +280,3 @@ lsof -i :3000
 # Use different port
 docker run -p 3002:3000 slim-image-optimized:latest
 ```
-
-## License
-MIT
-
-## Author
-CI/CD Course - Universidad Galileo
-
----
-
-**Last Updated**: March 2026
-**Version**: 1.0.0
